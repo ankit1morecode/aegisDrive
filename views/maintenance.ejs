@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AegisDRIVE | Predictive Maintenance</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<%- include('partials/header') %>
+
+<div class="container">
+  <%- include('partials/sidebar') %>
+
+  <main class="content">
+
+    <h1>🛠️ Predictive Maintenance</h1>
+
+    <div class="panel">
+      <table>
+        <thead>
+          <tr>
+            <th>Vehicle</th>
+            <th>Component</th>
+            <th>Risk</th>
+            <th>ETA</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% maintenanceList.forEach(item => { %>
+            <tr>
+              <td>
+                <a href="/vehicles/<%= item.vehicleId %>">
+                  <%= item.vehicleId %>
+                </a>
+              </td>
+
+              <td><%= item.component %></td>
+
+              <td>
+                <span class="status
+                  <%= item.risk === "High" ? "critical" :
+                      item.risk === "Medium" ? "warning" : "online" %>">
+                  <%= item.risk %>
+                </span>
+              </td>
+
+              <td><%= item.eta %></td>
+
+              <td>
+                <% if (item.risk === "High") { %>
+                  <button class="btn danger">Book Service</button>
+                <% } else { %>
+                  <button class="btn">Monitor</button>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<%- include('partials/footer') %>
+
+</body>
+</html>

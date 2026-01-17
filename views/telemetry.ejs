@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AegisDRIVE | Telemetry</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+
+<%- include('partials/header') %>
+
+<div class="container">
+  <%- include('partials/sidebar') %>
+
+  <main class="content">
+    <h1>📡 Live Telemetry</h1>
+
+    <div class="panel">
+      <p>Vehicle: <strong id="vId">-</strong></p>
+      <p>🌡️ Temp: <span id="temp">-</span> °C</p>
+      <p>💧 Humidity: <span id="humidity">-</span> %</p>
+      <p>🛢️ Gas: <span id="gas">-</span> ppm</p>
+      <p>📳 Vibration: <span id="vibration">-</span> g</p>
+    </div>
+
+    <div class="panel">
+      <h3>📦 Raw MQTT Data</h3>
+      <pre id="raw"></pre>
+    </div>
+
+  </main>
+</div>
+
+<%- include('partials/footer') %>
+
+<script src="/js/telemetry.js"></script>
+
+</body>
+</html>

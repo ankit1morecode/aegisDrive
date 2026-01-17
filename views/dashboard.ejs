@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AegisDRIVE | Overview</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+
+<%- include('partials/header') %>
+
+<div class="container">
+  <%- include('partials/sidebar') %>
+
+  <main class="content">
+
+    <h1>Fleet Overview</h1>
+
+    <!-- TOP METRICS -->
+    <div class="cards">
+      <div class="card">
+        <h3>🚗 Active Vehicles</h3>
+        <p id="activeVehicles">12</p>
+      </div>
+
+      <div class="card warning">
+        <h3>⚠️ Vehicles at Risk</h3>
+        <p id="riskVehicles">3</p>
+      </div>
+
+      <div class="card">
+        <h3>🛠️ Service Due</h3>
+        <p id="serviceDue">5</p>
+      </div>
+
+      <div class="card green">
+        <h3>🌱 Green Score</h3>
+        <p id="greenScore">86%</p>
+      </div>
+    </div>
+
+    <!-- SECOND ROW -->
+    <div class="grid-2">
+
+      <!-- LIVE STATUS -->
+      <div class="panel">
+        <h3>📡 Live Vehicle Status</h3>
+        <ul id="liveStatus">
+          <li>AG-102 — 🟢 Normal</li>
+          <li>AG-205 — 🟡 Warning</li>
+          <li>AG-311 — 🔴 Critical</li>
+        </ul>
+      </div>
+
+      <!-- PLACEHOLDER CHART -->
+      <div class="panel">
+        <h3>📈 Failure Risk Trend</h3>
+        <div class="chart-placeholder">
+          Chart will be rendered here
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ALERT TABLE -->
+    <div class="panel">
+      <h3>🚨 Recent Alerts</h3>
+      <table>
+        <tr>
+          <th>Vehicle</th>
+          <th>Issue</th>
+          <th>Severity</th>
+          <th>Time</th>
+        </tr>
+        <tr>
+          <td>AG-205</td>
+          <td>High Gas Level</td>
+          <td>Medium</td>
+          <td>2 mins ago</td>
+        </tr>
+        <tr>
+          <td>AG-311</td>
+          <td>Overheating</td>
+          <td>High</td>
+          <td>5 mins ago</td>
+        </tr>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<%- include('partials/footer') %>
+
+<script src="/js/dashboard.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AegisDRIVE | Vehicle Twin</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Socket.IO -->
+  <script src="/socket.io/socket.io.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<%- include('partials/header') %>
+
+<div class="container">
+  <%- include('partials/sidebar') %>
+
+  <main class="content">
+
+    <!-- ================= HEADER ================= -->
+    <div class="twin-header">
+      <h1>🚗 Vehicle <%= vehicleId %></h1>
+
+      <div class="health">
+        Health Score:
+        <span id="healthScore">
+          <%= vehicle?.healthScore != null ? vehicle.healthScore + "%" : "N/A" %>
+        </span>
+      </div>
+    </div>
+
+    <!-- ================= MAIN GRID ================= -->
+    <div class="grid-3">
+
+      <!-- ===== VEHICLE INFO ===== -->
+      <div class="panel">
+        <h3>📄 Vehicle Info</h3>
+
+        <p><strong>ID:</strong> <%= vehicleId %></p>
+        <p><strong>Model:</strong> Prototype-X</p>
+
+        <p>
+          <strong>Status:</strong>
+          <span class="status 
+            <%= vehicle?.status === "Critical" ? "critical" :
+                vehicle?.status === "Warning" ? "warning" : "online" %>">
+            <%= vehicle?.status ?? "Unknown" %>
+          </span>
+        </p>
+
+        <p>
+          <strong>Last Sync:</strong>
+          <span id="lastSync">
+            <%= vehicle?.updatedAt
+              ? new Date(vehicle.updatedAt).toLocaleString()
+              : "N/A" %>
+          </span>
+        </p>
+      </div>
+
+      <!-- ===== LIVE SENSORS ===== -->
+      <div class="panel">
+        <h3>📡 Live Sensors</h3>
+
+        <div class="sensor">
+          🌡️ Temperature:
+          <span id="temp"><%= vehicle?.lastTelemetry?.temperature ?? "-" %></span> °C
+        </div>
+
+        <div class="sensor">
+          💧 Humidity:
+          <span id="humidity"><%= vehicle?.lastTelemetry?.humidity ?? "-" %></span> %
+        </div>
+
+        <div class="sensor">
+          🛢️ Gas:
+          <span id="gas"><%= vehicle?.lastTelemetry?.gas ?? "-" %></span> ppm
+        </div>
+
+        <div class="sensor">
+          📳 Vibration:
+          <span id="vibration"><%= vehicle?.lastTelemetry?.vibration ?? "-" %></span> g
+        </div>
+      </div>
+
+      <!-- ===== PREDICTIONS ===== -->
+      <div class="panel warning">
+        <h3>⚠️ Predictive Insights</h3>
+
+        <ul id="predictions">
+          <li>Brake wear likely in ~14 days</li>
+          <li>Battery degradation probability: 22%</li>
+        </ul>
+
+        <small style="color:#94a3b8">
+          (Rule-based demo · ML-ready)
+        </small>
+      </div>
+
+    </div>
+
+    <!-- ================= ANALYTICS ================= -->
+    <div class="panel">
+      <h3>📈 Sensor History (Temperature)</h3>
+      <canvas id="tempChart" height="100"></canvas>
+    </div>
+
+  </main>
+</div>
+
+<%- include('partials/footer') %>
+
+<!-- Vehicle Twin Logic -->
+<script src="/js/vehicleTwin.js"></script>
+
+</body>
+</html>

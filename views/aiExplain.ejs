@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AegisDRIVE | AI Explainability</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<%- include('partials/header') %>
+
+<div class="container">
+  <%- include('partials/sidebar') %>
+
+  <main class="content">
+
+    <h1>🧠 AI Explainability & Trust</h1>
+
+    <% explanations.forEach(exp => { %>
+      <div class="panel">
+
+        <h3>🚗 Vehicle <%= exp.vehicleId %></h3>
+
+        <p>
+          <strong>Status:</strong>
+          <span class="status
+            <%= exp.status === "Critical" ? "critical" :
+                exp.status === "Warning" ? "warning" : "online" %>">
+            <%= exp.status %>
+          </span>
+        </p>
+
+        <p><strong>Health Score:</strong> <%= exp.healthScore %>%</p>
+
+        <h4>🔍 Why this decision?</h4>
+        <ul>
+          <% exp.reasons.forEach(r => { %>
+            <li>✔ <%= r %></li>
+          <% }) %>
+        </ul>
+
+        <h4>📊 Signal Contribution</h4>
+        <ul>
+          <% exp.contributions.forEach(c => { %>
+            <li><%= c.signal %>: <%= c.value %>%</li>
+          <% }) %>
+        </ul>
+
+      </div>
+    <% }) %>
+
+  </main>
+</div>
+
+<%- include('partials/footer') %>
+
+</body>
+</html>
